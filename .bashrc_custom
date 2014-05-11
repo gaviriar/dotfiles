@@ -1,8 +1,13 @@
-## -----------------------                                                                                                                                                          
+## -----------------------
 ## -- 1) Set up aliases --
-## -----------------------                                                                                                                                   
+## -----------------------
 
 # 1.1) Shortcuts to Popular Folders
 alias project="cd ~/Dropbox/Education/Trinity\ College/5th\ Year/Research\ Project-Emotion\ in\ Speech/"
 alias 5year="cd ~/Dropbox/Education/Trinity\ College/5th\ Year"
 alias tedlium="cd /Volumes/Seagate-Drive/TEDLIUM_Develop_Data/"
+alias netapps="cd ~/Dropbox/Education/Trinity\ College/5th\ Year/CS7009\ Network\ Applications"
+alias opensmilebook="open ~/Dropbox/Education/Trinity\ College/5th\ Year/Research\ Project-Emotion\ in\ Speech/Toolkits/openSMILE_book_2.0-rc1.pdf"
+
+### -----------------------
+## ----- 2) set up environment variables

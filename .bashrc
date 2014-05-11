@@ -9,7 +9,7 @@
 #    3) .bash_profile imports .bashrc, but not vice versa.
 #    4) .bashrc imports .bashrc_custom, which can be used to override
 #        variables specified here.
-#           
+#
 # When using GNU screen:
 #
 #    1) .bash_profile is loaded the first time you login, and should be used
@@ -74,6 +74,7 @@ else
 	umask 022
 fi
 
+
 # ---------------------------------------------------------
 # -- 1.2) Set up bash prompt and ~/.bash_eternal_history --
 # ---------------------------------------------------------
@@ -111,6 +112,12 @@ if [ "$PS1" ]; then
 
 	    ;;
     esac
+
+
+# Set the PS1 prompt (with colors).
+# Based on http://www-128.ibm.com/developerworks/linux/library/l-tip-prompt/
+# And http://networking.ringofsaturn.com/Unix/Bash-prompts.php .
+PS1="\[\e[36;1m\]\h:\[\e[32;1m\]\w$ \[\e[0m\]"
 
     # Bash eternal history
     # --------------------
@@ -160,6 +167,15 @@ fi
 # See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
 shopt -s histappend
 
+# Append commands to the history every time a prompt is shown,
+# instead of after closing the session.
+# http://stefaanlippens.net/my_bashrc_aliases_profile_and_other_stuff
+PROMPT_COMMAND='history -a'
+
+# Avoid succesive duplicates in the bash command history.
+# Based on http://stefaanlippens.net/my_bashrc_aliases_profile_and_other_stuff
+export HISTCONTROL=ignoredups
+
 # Make prompt informative
 # See:  http://www.ukuug.org/events/linux2003/papers/bash_tips/
 PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
@@ -192,7 +208,7 @@ alias treeacl='tree -A -C -L 2'
 alias em='emacs -nw'     # No X11 windows
 alias eqq='emacs -nw -Q' # No config and no X11
 export EDITOR='emacs -nw'
-export VISUAL='emacs -nw' 
+export VISUAL='emacs -nw'
 
 # 2.4) grep options
 export GREP_OPTIONS='--color=auto'
@@ -210,7 +226,11 @@ command -v rlwrap >/dev/null 2>&1 || { echo >&2 "Install rlwrap to use node: sud
 
 # 2.7) node.js and nvm
 # http://nodejs.org/api/repl.html#repl_repl
-alias node="env NODE_NO_READLINE=1 rlwrap node"
+# http://blog.doteight.com/blog/2011/01/16/rlwrap-and-node/
+# replaces the prompt with a custom colored one, and
+# automatically starts maintaining a history file for
+# this command at ~/.node_history.
+alias node='env NODE_NO_READLINE=1 rlwrap -p Green -S "node >>> " node'
 alias node_repl="node -e \"require('repl').start({ignoreUndefined: true})\""
 export NODE_DISABLE_COLORS=1
 if [ -s ~/.nvm/nvm.sh ]; then
@@ -225,3 +245,5 @@ fi
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -59,21 +59,26 @@ export PATH="$HOME/local/node/bin:$HOME/Development/adt-bundle-mac/sdk/tools:$PA
 export PATH="$HOME/Development/adt-bundle-mac/sdk/platform-tools:$PATH"
 # Setting PATH for Python 2.7                                                          # The orginal version is saved in .bash_profile.pysave                                 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 export PATH
-[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM                                                                                                                     
+[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
 
 
 # Setting PATH for openSMILE                                                           export LD_LIBRARY_PATH=$HOME/opensmile/lib
 export PATH="$PATH:$HOME/opensmile/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*                                                                 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 ##  - The following settings are from the startup-class original scripts, not needed here
 ##  - These are line by line so that you can kill one without affecting the others.
 ##  - Lowest priority first, highest priority last.
 
-#export PATH=$PATH
-#export PATH=$HOME/bin:$PATH
-#export PATH=/usr/bin:$PATH
-#export PATH=/usr/local/bin:$PATH
-#export PATH=/usr/local/sbin:$PATH
-#export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
+
+# COnfigure PATH for WEKA Toolkit
+export WEKAINSTALL=/Applications/weka-3-6-10
+export PATH=$WEKAINSTALL/weka.jar:$PATH
+
+export PATH=$PATH
+export PATH=$HOME/bin:$PATH
+export PATH=/usr/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
