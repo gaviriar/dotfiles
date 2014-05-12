@@ -114,54 +114,54 @@ if [ "$PS1" ]; then
     esac
 
 
-# Set the PS1 prompt (with colors).
-# Based on http://www-128.ibm.com/developerworks/linux/library/l-tip-prompt/
-# And http://networking.ringofsaturn.com/Unix/Bash-prompts.php .
-PS1="\[\e[36;1m\]\h:\[\e[32;1m\]\w$ \[\e[0m\]"
+# # Set the PS1 prompt (with colors).
+# # Based on http://www-128.ibm.com/developerworks/linux/library/l-tip-prompt/
+# # And http://networking.ringofsaturn.com/Unix/Bash-prompts.php .
+# PS1="\[\e[36;1m\]\h:\[\e[32;1m\]\w$ \[\e[0m\]"
 
-    # Bash eternal history
-    # --------------------
-    # This snippet allows infinite recording of every command you've ever
-    # entered on the machine, without using a large HISTFILESIZE variable,
-    # and keeps track if you have multiple screens and ssh sessions into the
-    # same machine. It is adapted from:
-    # http://www.debian-administration.org/articles/543.
-    #
-    # The way it works is that after each command is executed and
-    # before a prompt is displayed, a line with the last command (and
-    # some metadata) is appended to ~/.bash_eternal_history.
-    #
-    # This file is a tab-delimited, timestamped file, with the following
-    # columns:
-    #
-    # 1) user
-    # 2) hostname
-    # 3) screen window (in case you are using GNU screen)
-    # 4) date/time
-    # 5) current working directory (to see where a command was executed)
-    # 6) the last command you executed
-    #
-    # The only minor bug: if you include a literal newline or tab (e.g. with
-    # awk -F"\t"), then that will be included verbatime. It is possible to
-    # define a bash function which escapes the string before writing it; if you
-    # have a fix for that which doesn't slow the command down, please submit
-    # a patch or pull request.
-    PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo -e $$\\t$USER\\t$HOSTNAME\\tscreen $WINDOW\\t`date +%D%t%T%t%Y%t%s`\\t$PWD"$(history 1)" >> ~/.bash_eternal_history'
+#     # Bash eternal history
+#     # --------------------
+#     # This snippet allows infinite recording of every command you've ever
+#     # entered on the machine, without using a large HISTFILESIZE variable,
+#     # and keeps track if you have multiple screens and ssh sessions into the
+#     # same machine. It is adapted from:
+#     # http://www.debian-administration.org/articles/543.
+#     #
+#     # The way it works is that after each command is executed and
+#     # before a prompt is displayed, a line with the last command (and
+#     # some metadata) is appended to ~/.bash_eternal_history.
+#     #
+#     # This file is a tab-delimited, timestamped file, with the following
+#     # columns:
+#     #
+#     # 1) user
+#     # 2) hostname
+#     # 3) screen window (in case you are using GNU screen)
+#     # 4) date/time
+#     # 5) current working directory (to see where a command was executed)
+#     # 6) the last command you executed
+#     #
+#     # The only minor bug: if you include a literal newline or tab (e.g. with
+#     # awk -F"\t"), then that will be included verbatime. It is possible to
+#     # define a bash function which escapes the string before writing it; if you
+#     # have a fix for that which doesn't slow the command down, please submit
+#     # a patch or pull request.
+#     PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo -e $$\\t$USER\\t$HOSTNAME\\tscreen $WINDOW\\t`date +%D%t%T%t%Y%t%s`\\t$PWD"$(history 1)" >> ~/.bash_eternal_history'
 
-    # Turn on checkwinsize
-    shopt -s checkwinsize
+#     # Turn on checkwinsize
+#     shopt -s checkwinsize
 
-    #Prompt edited from default
-    [ "$PS1" = "\\s-\\v\\\$ " ] && PS1="[\u \w]\\$ "
+#     #Prompt edited from default
+#     [ "$PS1" = "\\s-\\v\\\$ " ] && PS1="[\u \w]\\$ "
 
-    if [ "x$SHLVL" != "x1" ]; then # We're not a login shell
-        for i in /etc/profile.d/*.sh; do
-	    if [ -r "$i" ]; then
-	        . $i
-	    fi
-	done
-    fi
-fi
+#     if [ "x$SHLVL" != "x1" ]; then # We're not a login shell
+#         for i in /etc/profile.d/*.sh; do
+# 	    if [ -r "$i" ]; then
+# 	        . $i
+# 	    fi
+# 	done
+#     fi
+# fi
 
 # Append to history
 # See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
@@ -179,7 +179,7 @@ PROMPT_COMMAND='history -a'
 
 # Make prompt informative
 # See:  http://www.ukuug.org/events/linux2003/papers/bash_tips/
-PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
+#PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
 
 
 ## ------------------------------
@@ -188,5 +188,3 @@ PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
