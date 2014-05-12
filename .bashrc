@@ -181,13 +181,17 @@ PROMPT_COMMAND='history -a'
 # See:  http://www.ukuug.org/events/linux2003/papers/bash_tips/
 #PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
 
-
 ## ------------------------------
 ## -- 3) User-customized code  --
 ## ------------------------------
+
+
+#source z for fast directory searching
+source ~/code/z/z.sh
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
 
 
-source ~/code/z/z.sh
+
+
