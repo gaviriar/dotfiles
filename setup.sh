@@ -1,6 +1,4 @@
 # #!/bin/bash
-
-
 # git pull and install dotfiles as well
 cd $HOME
 if [-d dotfiles.old/ ]; then
@@ -12,10 +10,20 @@ fi
 if [ -d .emacs.d/ ]; then
     mv .emacs.d .emacs.d~
 fi
-git clone https://github.com/gaviriar/dotfiles.git
-ln -sf dotfiles/.screenrc .
-ln -sf dotfiles/.bash_profile .
-ln -sf dotfiles/.bashrc .
-ln -sf dotfiles/.bashrc_custom .
-ln -sf dotfiles/.emacs.d .
 
+cd "$(dirname "$0")"
+git pull
+function doIt() {
+  rsync --exclude ".git/" --exclude ".DS_Store" --exclude "setup.sh" --exclude "README.md" -av . ~
+}
+if [ "$1" == "--force" -o "$1" == "-f" ]; then
+  doIt
+else
+  read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    doIt
+  fi
+fi
+unset doIt
+source ~/.bash_profile
