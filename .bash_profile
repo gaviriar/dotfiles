@@ -52,9 +52,9 @@
 #  - All declarations repeated for each screen session go there
 
 
-# Load ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions and ~/.bashrc
+# Load ~/.extra, ~/.path, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions and ~/.bashrc
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{bash_prompt,exports,aliases,functions,bashrc}; do
+for file in ~/.{path,bash_prompt,exports,aliases,functions,bashrc}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
