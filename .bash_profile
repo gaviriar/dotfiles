@@ -54,10 +54,26 @@
 
 # Load ~/.extra, ~/.path, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions and ~/.bashrc
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{path,bash_prompt,exports,aliases,functions,bashrc}; do
+for file in ~/.{path,bash_prompt,exports,aliases,functions}; do
   [ -r "$file" ] && source "$file"
 done
-unset file
+unset
+
+
+
+# Append to history
+# See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
+shopt -s histappend
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+#source z for fast directory searching
+source ~/code/z/z.sh
+
+# http://stackoverflow.com/questions/13804382/how-to-automatically-run-bin-bash-login-automatically-in-the-embeded-termin
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
 
 
 
