@@ -16,7 +16,7 @@
 (require 'whitespace)
 (require 'dired-x)
 (require 'compile)
-(require 'cc-mode')
+;(require 'cc-mode') ;; enable major C++ mode 
 (ido-mode t)
 (menu-bar-mode -1)
 (normal-erase-is-backspace-mode 1)
