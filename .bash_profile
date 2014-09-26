@@ -74,6 +74,7 @@ source ~/code/z/z.sh
 # http://stackoverflow.com/questions/13804382/how-to-automatically-run-bin-bash-login-automatically-in-the-embeded-termin
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
-
+# AWS commnad line completion
+$ complete -C '/usr/local/Cellar/awscli/1.3.23/bin/aws_completer' aws
 
 
