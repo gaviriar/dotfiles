@@ -75,6 +75,6 @@ source ~/code/z/z.sh
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # AWS commnad line completion
-$ complete -C '/usr/local/Cellar/awscli/1.3.23/bin/aws_completer' aws
+complete -C '/usr/local/Cellar/awscli/1.3.23/bin/aws_completer' aws
 
 
