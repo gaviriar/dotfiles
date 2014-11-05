@@ -196,3 +196,5 @@
 [ -n "$PS1" ] && source ~/.bash_profile
 
 
+# AWS commnad line completion
+complete -C '/usr/local/Cellar/awscli/1.3.23/bin/aws_completer' aws
