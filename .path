@@ -1,26 +1,14 @@
 ## .path file
-## used to configure PATH environment variables
-export PATH="$HOME/local/node/bin:$HOME/Development/adt-bundle-mac/sdk/tools:$PATH"
-export PATH="$HOME/Development/adt-bundle-mac/sdk/platform-tools:$PATH"
-# Setting PATH for Python 2.7
-# The orginal version is saved in .bash_profile.pysave
-export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+## Current .bash_profile
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-[ -s $HOME/.nvm/nvm.sh ] && . $HOME/.nvm/nvm.sh # This loads NVM
-
-
-# Setting PATH for openSMILE
-export PATH="$PATH:$HOME/opensmile/bin"
-
+# Load the postgres command line tools
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 
 ##  - The following settings are from the startup-class original scripts, not needed here
 ##  - These are line by line so that you can kill one without affecting the others.
 ##  - Lowest priority first, highest priority last.
-
-
-# COnfigure PATH for WEKA Toolkit
-export WEKAINSTALL=/Applications/weka-3-6-10
-export PATH=$WEKAINSTALL/weka.jar:$PATH
 
 export PATH=$PATH
 export PATH=$HOME/bin:$PATH
@@ -29,9 +17,9 @@ export PATH=/usr/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
-export PATH="$(brew --prefix josegonzalez/php/php55)/bin:$PATH"
 
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-# Load RVM function
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+## Load VirtualEnv Environment variables and startup script 
+## cmd line tools
+export WORKON_HOME=~/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/Cellar/python3/3.4.2_1/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
