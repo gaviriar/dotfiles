@@ -29,6 +29,14 @@
 (setq suggest-key-bindings t)
 (setq vc-follow-symlinks t)
 
+;; -----------------------------
+;; -- Turn off the UI elements --
+;; ------------------------------
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,6 +59,10 @@
 
 ;; ------------
 ;; -- Macros --
+;; Custom Macros must be started and stopped
+;; C-x ( - Start recording the macro
+;; C-x ) - Stop the recording of the macro
+;; C-x e - Invoke the last created macro
 ;; ------------
 (load "defuns-config.el")
 (fset 'align-equals "\C-[xalign-regex\C-m=\C-m")
@@ -70,6 +82,8 @@
 (global-set-key "\M-d" 'delete-word)
 (global-set-key "\M-h" 'backward-delete-word)
 (global-set-key "\M-u" 'zap-to-char)
+(global-set-key "Alt-r" 'isearch-backward-regexp)
+(global-set-key "Alt-s" 'isearch-forward-regexp)
 
 ;; ---------------------------
 ;; -- JS Mode configuration --
