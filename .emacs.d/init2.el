@@ -5,11 +5,13 @@
 ;; - Global Settings --
 ;; --------------------
 (add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/ecb")
 (require 'dired-x)
 (require 'cc-mode) ;; Add C/C++ mode by default
 (require 'ansi-color)
 (require 'smooth-scrolling)
 (require 'whitespace)
+(require 'compile)
 
 (setq show-trailing-whitespace t)
 
@@ -55,28 +57,32 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/emacs-color-theme-solarized")
 ;; Add solarized theme
 (load-theme 'solarized t)
+;;(set-terminal-parameter nil 'background-mode 'light)
+(set-frame-parameter nil 'background-mode 'dark)
+(set-terminal-parameter nil 'background-mode 'dark)
+(setq solarized-use-terminal-theme t)
+
+;;(set 'solarized-termcolors 256)
+;;(setq solarized-use-termial-theme t)
+;;(enable-theme 'solarized)
 
 ;; Add code indentation
 (setq-default c-basic-offset 4 c-default-style "linux")
 (setq-default tab-width 4 indent-tabs-mode t)
 (define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 
-;;(set-frame-parameter nil 'background-mode 'dark)
-;;(set-terminal-parameter nil 'background-mode 'dark)
-;;(setq solarized-use-termial-theme t)
-
 ;; Set the emacs BG trasparent, to keep the terminal blue BG
 ;; Not sure how correct this is
-(custom-set-faces  '(default ((t (:background "transparent"))) t))
+
 
 ;;; Emacs is not a package manager, and here we load its package manager!
 (require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-				  ("elpa" . "http://tromey.com/elpa/")
-				  ;; TODO: Maybe, use this after emacs24 is released
-				  ;; (development versions of packages)
-				  ("melpa" . "http://melpa.milkbox.net/packages/")
-				  ))
+          ("elpa" . "http://tromey.com/elpa/")
+          ;; TODO: Maybe, use this after emacs24 is released
+          ;; (development versions of packages)
+          ("melpa" . "http://melpa.milkbox.net/packages/")
+          ))
   (add-to-list 'package-archives source t))
 (package-initialize)
 
@@ -87,10 +93,25 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 (defvar tmtxt/packages
-  '(yasnippet auto-complete auto-complete-c-headers iedit flymake-google-cpplint flymake-cursor google-c-style irony flycheck))
+  '(yasnippet auto-complete auto-complete-c-headers iedit flymake-google-cpplint flymake-cursor google-c-style irony flycheck autopair auto-complete-clang))
 (dolist (p tmtxt/packages)
   (when (not (package-installed-p p))
-		(package-install p)))
+    (package-install p)))
+
+;; ---------------
+;; -- Autopair ---
+;; ---------------
+;; Autowrap closing brackets when opening a bracket
+(require 'autopair)
+(autopair-global-mode 1)
+(setq autopair-autowrap t)
+
+;; ------------------
+;; -- Member Functions
+;; -------------------
+;; Tool to expand member functions in .h to .cpp
+(require 'member-functions)
+(setq mf--source-file-extension "cpp")
 
 ;; ---------------
 ;; -- Yasnippet --
@@ -115,10 +136,17 @@
   )
 ;; now let's call this function from c/c++ hooks
 (add-hook 'c++-mode-hook 'my:ac-c-header-init)
-(add-hook 'c-mode-hoo 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
 
 ;; fix iedit bug in Mac
 (define-key global-map (kbd "C-c ;") 'iedit-mode)
+
+;; --------------------------
+;; -- Auto Complete Clang ---
+;; --------------------------
+(require 'auto-complete-clang)
+(define-key c++-mode-map (kbd "C-S-<return>") 'ac-complete-clang)
+
 
 ;; --------------------------------
 ;; -- Flymake ---------------------
@@ -144,9 +172,9 @@
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-;; -----------------
+;; ----------------------------------
 ;; --------- Semantic Mode ----------
-;; -----------------
+;; ----------------------------------
 ;; turn Semantic
 ;; CEDET feature
 (semantic-mode 1)
@@ -161,10 +189,53 @@
 (global-ede-mode 1)
 ;; create a project for our program.
 (ede-cpp-root-project "My project" :file "/Users/RicardoGaviria/Projects/learning-c++/src/main.cpp"
-					  :include-path '("/ ../my_inc" "/usr/local/opt/opencv3/include"))
+            :include-path '("/ ../my_inc" "/usr/local/include/open" "/usr/local/include/opencv" "/usr/local/include/opencv2"))
 ;;  you can now use system-include-path for settting up the system header file locations
 ;; turn on automatic reparsing of open buffers in semantic
 (global-semantic-idle-scheduler-mode 1)
+
+;; --------------------------
+;; --------- ECB -----------
+;; --------------------------
+(require 'ecb)
+;;(require 'ecb-autoloads)
+(setq ecb-layout-name "left1")
+(setq ecb-show-sources-in-directories-buffer 'always)
+(setq ecb-compile-window-height 12)
+;; activate/deactivate ecb
+(global-set-key (kbd "C-x ,") 'ecb-activate)
+(global-set-key (kbd "C-x .") 'my:ecb-deactivate)
+;; show/hide ecb window
+(global-set-key (kbd "C-o") 'my:ecb-show-ecb-windows)
+(global-set-key (kbd "C-b") 'my:ecb-hide-ecb-windows)
+;; quick navigation between ecb windows
+(global-set-key (kbd "C-x e") 'ecb-goto-window-edit1)
+(global-set-key (kbd "C-x d") 'ecb-goto-window-directories)
+(global-set-key (kbd "C-x s") 'ecb-goto-window-sources)
+(global-set-key (kbd "C-x m") 'ecb-goto-window-methods)
+(global-set-key (kbd "C-x c") 'ecb-goto-window-compilation)
+;;; replacement for built-in ecb-deactive, ecb-hide-ecb-windows and
+;;; ecb-show-ecb-windows functions
+;;; since they hide/deactive ecb but not restore the old windows for me
+(defun my:ecb-deactivate ()
+  "deactive ecb and then split emacs into 2 windows that contain 2 most recent buffers"
+  (interactive)
+  (ecb-deactivate)
+  (split-window-right)
+  (switch-to-next-buffer)
+  (other-window 1))
+(defun my:ecb-hide-ecb-windows ()
+  "hide ecb and then split emacs into 2 windows that contain 2 most recent buffers"
+  (interactive)
+  (ecb-hide-ecb-windows)
+  (split-window-right)
+  (switch-to-next-buffer)
+  (other-window 1))
+(defun my:ecb-show-ecb-windows ()
+  "show ecb windows and then delete all other windows except the current one"
+  (interactive)
+  (ecb-show-ecb-windows)
+    (delete-other-windows))
 
 
 ;; -----------------
@@ -178,15 +249,29 @@
 ;;-;; irony-mode's buffers by irony-mode's function
 ;;-(defun my-irony-mode-hook ()
 ;;-  (define-key irony-mode-map [remap completion-at-point]
-;;-	'irony-completion-at-point-async)
+;;- 'irony-completion-at-point-async)
 ;;-  (define-key irony-mode-map [remap complete-symbol]
-;;-	'irony-completion-at-point-async))
+;;- 'irony-completion-at-point-async))
 ;;-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
 ;;-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 ;;-
 ;;-;; define a function to start irony mode for c/c++ modes
 ;;-(defun my:irony-enable()
 ;;-  (when (member major-mode irony-known-modes)
-;;-	(irony-mode 1)))
+;;- (irony-mode 1)))
 ;;-(add-hook 'c++-mode-hook 'my:irony-enable)
 ;;-(add-hook 'c-mode-hook 'my:irony-enable)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:weight bold :height 1 :family "default")))))
