@@ -2,9 +2,6 @@
 ## -- 1) Set up aliases --
 ## -----------------------
 
-# 1.1) Shortcuts to Popular Folders
-alias project="cd ~/Dropbox/Education/Trinity\ College/5th\ Year/Research\ Project-Emotion\ in\ Speech/"
-alias 5year="cd ~/Dropbox/Education/Trinity\ College/5th\ Year"
 
 ### -----------------------
 ## ----- 2) set up environment variables

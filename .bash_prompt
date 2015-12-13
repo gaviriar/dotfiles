@@ -102,7 +102,7 @@ function usernamehost() {
 PS1="\[\e]2;$PWD\[\a\]\[\e]1;\]"
 PS1+="$(basename "$(dirname "$PWD")")/\W"
 PS1+="\[\a\]${BOLD}"
-PS1+="\$(usernamehost)"
+PS1+="ricardogaviria"
 PS1+="\[$GREEN\]\w"
 PS1+="\$(git_info)"
 PS1+="\[$WHITE\]\n➜ " 

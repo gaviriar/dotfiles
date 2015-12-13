@@ -5,6 +5,11 @@
 # adapted from https://github.com/startup-class/dotfiles
 # mainly copied from https://github.com/s10wen/dotfiles
 
+alias bld32lint="build.cmd --dist ss_2015a win32 --lint"
+alias lineCountAll="awk -f /c/Users/rgaviria/Projects/kallithea/line-counting-read-only/lc.awk *.* 1> line_count.txt"
+alias lineCountCpp="awk -f /c/Users/rgaviria/Projects/kallithea/line-counting-read-only/lc.awk *.h *.cpp"
+alias lineCount="awk -f /c/Users/rgaviria/Projects/kallithea/line-counting-read-only/lc.awk"
+
 # Safety
 alias rm="rm -i"
 alias mv="mv -i"

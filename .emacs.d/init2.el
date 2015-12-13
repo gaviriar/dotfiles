@@ -35,7 +35,7 @@
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
-(global-set-key "\C-cc" 'comment-or-uncomment-region)
+(global-set-key "\C-c\c" 'comment-or-uncomment-region)
 (global-set-key "\M-n" 'next5)
 (global-set-key "\M-p" 'prev5)
 (global-set-key "\M-o" 'other-window)

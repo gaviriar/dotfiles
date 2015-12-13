@@ -56,15 +56,10 @@
 
 # Load ~/.extra, ~/.path, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions and ~/.bashrc
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{path,bash_prompt,exports,aliases,functions}; do
+for file in ~/.{exports,aliases,functions}; do
   [ -r "$file" ] && source "$file"
 done
 unset file;
-
-# init z   https://github.com/rupa/z
-. ~/MyCellar/z/z.sh
-#! if Z is not working then maybe try: source ~/MyCellar/z/z.sh
-
 
 # Append to the Bash history file rather than overriding it
 # See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
@@ -76,19 +71,7 @@ shopt -s nocaseglob
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 
-# Ad tab completion for many Bash commands. 
-
-if [ -f $(brew --prefix)/etc/bash_completion ]; then # Assuming HomeBrew and bash-completion package is installed too 
-  . $(brew --prefix)/etc/bash_completion
-elif [ -f /etc/bash_completion ]; then # If no bash-completion set by homebrew found 
-	source /etc/bash_completion;
-fi;
-
 # Add auto-tab completion for SSH hostnames based on ~/.ssh/config
 # More info on ssh configs: http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
-
-# http://stackoverflow.com/questions/13804382/how-to-automatically-run-bin-bash-login-automatically-in-the-embeded-termin
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
 
