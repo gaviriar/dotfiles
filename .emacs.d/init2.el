@@ -1,5 +1,8 @@
+;;; init.el --- Summary
 ;; *- mode: emacs-lisp -*-
 ;; Simple .emacs configuration
+
+;;; Code:
 
 ;; --------------------
 ;; - Global Settings --
@@ -58,8 +61,8 @@
 ;; Add solarized theme
 (load-theme 'solarized t)
 ;;(set-terminal-parameter nil 'background-mode 'light)
-(set-frame-parameter nil 'background-mode 'dark)
-(set-terminal-parameter nil 'background-mode 'dark)
+(set-frame-parameter nil 'background-mode 'light)
+(set-terminal-parameter nil 'background-mode 'light)
 (setq solarized-use-terminal-theme t)
 
 ;;(set 'solarized-termcolors 256)
@@ -78,11 +81,11 @@
 ;;; Emacs is not a package manager, and here we load its package manager!
 (require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-          ("elpa" . "http://tromey.com/elpa/")
-          ;; TODO: Maybe, use this after emacs24 is released
-          ;; (development versions of packages)
-          ("melpa" . "http://melpa.milkbox.net/packages/")
-          ))
+				  ("elpa" . "http://tromey.com/elpa/")
+				  ;; TODO: Maybe, use this after emacs24 is released
+				  ;; (development versions of packages)
+				  ("melpa" . "http://melpa.milkbox.net/packages/")
+				  ))
   (add-to-list 'package-archives source t))
 (package-initialize)
 
@@ -93,10 +96,10 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 (defvar tmtxt/packages
-  '(yasnippet auto-complete auto-complete-c-headers iedit flymake-google-cpplint flymake-cursor google-c-style irony flycheck autopair auto-complete-clang))
+  '(yasnippet auto-complete auto-complete-c-headers iedit flymake-google-cpplint flymake-cursor google-c-style irony flycheck autopair auto-complete-clang multiple-cursors))
 (dolist (p tmtxt/packages)
   (when (not (package-installed-p p))
-    (package-install p)))
+		(package-install p)))
 
 ;; ---------------
 ;; -- Autopair ---
@@ -105,6 +108,20 @@
 (require 'autopair)
 (autopair-global-mode 1)
 (setq autopair-autowrap t)
+
+;;---------------------
+;;--- Multiple Cursors
+;;---------------------
+(require 'multiple-cursors)
+; When you have an active region that spans multiple lines, the following will add a cursor to each line:
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+
+;When you want to add multiple cursors not based on continuous lines, but based on keywords in the buffer, use:
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+;First mark the word, then add more cursors.
+;To get out of multiple-cursors-mode, press `<return>` or `C-g`. The latter will first disable multiple regions before disabling multiple cursors. If you want to insert a newline in multiple-cursors-mode, use `C-j`.
 
 ;; ------------------
 ;; -- Member Functions
@@ -155,7 +172,7 @@
 ;; let's define a function for flymake initialization
 ;;-(defun my:flymake-google-init ()
 ;;-  (require 'flymake-google-cpplint)
-;;-  (custom-set-variables
+;;-  (custom-set-
 ;;-   '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
 ;;-  (flymake-google-cpplint-load)
 ;;-)
@@ -189,7 +206,7 @@
 (global-ede-mode 1)
 ;; create a project for our program.
 (ede-cpp-root-project "My project" :file "/Users/RicardoGaviria/Projects/learning-c++/src/main.cpp"
-            :include-path '("/ ../my_inc" "/usr/local/include/open" "/usr/local/include/opencv" "/usr/local/include/opencv2"))
+					  :include-path '("/ ../my_inc" "/usr/local/include/open" "/usr/local/include/opencv" "/usr/local/include/opencv2"))
 ;;  you can now use system-include-path for settting up the system header file locations
 ;; turn on automatic reparsing of open buffers in semantic
 (global-semantic-idle-scheduler-mode 1)
@@ -249,29 +266,32 @@
 ;;-;; irony-mode's buffers by irony-mode's function
 ;;-(defun my-irony-mode-hook ()
 ;;-  (define-key irony-mode-map [remap completion-at-point]
-;;- 'irony-completion-at-point-async)
+;;-	'irony-completion-at-point-async)
 ;;-  (define-key irony-mode-map [remap complete-symbol]
-;;- 'irony-completion-at-point-async))
+;;-	'irony-completion-at-point-async))
 ;;-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
 ;;-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 ;;-
 ;;-;; define a function to start irony mode for c/c++ modes
 ;;-(defun my:irony-enable()
 ;;-  (when (member major-mode irony-known-modes)
-;;- (irony-mode 1)))
+;;-	(irony-mode 1)))
 ;;-(add-hook 'c++-mode-hook 'my:irony-enable)
 ;;-(add-hook 'c-mode-hook 'my:irony-enable)
 
+;; Font configuration
+(set-face-attribute 'default nil
+                    :family "Consolas" :height 130 :weight 'bold)
 
-(custom-set-variables
+;;(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40"))
-(custom-set-faces
+ ;;'(ecb-options-version "2.40"))
+;;(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:weight bold :height 1 :family "default")))))
+;; '(default ((t (:weight bold :height 1 :family "default")))))
