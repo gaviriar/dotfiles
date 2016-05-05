@@ -1,0 +1,6 @@
+{
+	"cmd": ["pandoc", "-S", "-s", "-f", "markdown", "-t", "docx", "-o", 
+	"${file_path}/${file_base_name}.docx", "$file_name"],
+	"shell" : true,
+    "selector": "text.html.markdown"
+}

@@ -1,0 +1,8 @@
+{
+	//"cmd": ["BFW_build.cmd", "-di", "ss_2016_gm_dev", "-t", "c66x", "-co", "C:/dist_pkg/ss_2016_gm_dev/config/ss_2016_gm_dev_cfg_override.yml"],
+
+	"cmd": ["BFW_build.cmd", "-t", "c66"],
+	"working_dir": "${folder}/project_var_b",
+	"shell" : true,
+	"selector": "source.c, source.cpp, source.h"
+}

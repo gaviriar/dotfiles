@@ -1,0 +1,7 @@
+{
+	//"cmd": ["build", "--dist", "ss_2016_gm_dev", "c66x", "-s", "--lint","-c", "C:/dist_pkg/ss_2016_gm_dev/config/ss_2016_gm_dev_cfg_override.yml", "--update_meta", ""],
+	"cmd": ["build", "--dist", "ss_2015b", "win32", "--update_meta"],
+	"working_dir": "${file_path}/..",
+	"shell" : true,
+	"selector": "source.c, source.cpp"
+}
