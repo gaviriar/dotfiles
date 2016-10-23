@@ -18,8 +18,5 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
 
-## Load VirtualEnv Environment variables and startup script 
-## cmd line tools
-export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/Cellar/python3/3.4.2_1/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
+## Anaconda Path
+export PATH=~/anaconda3/bin:"$PATH"
