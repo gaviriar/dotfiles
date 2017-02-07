@@ -1,0 +1,20 @@
+[user]
+	name = Ricardo Gaviria
+	email = ricardo.a.gaviria@gmail.com
+[alias]
+	s = status -s
+	l = log
+	dif = diff
+	cob = checkout -b
+	co = checkout
+	br = branch
+	c = commit -m
+	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+[push]
+	default = simple
+[diff]
+	tool = bc3
+[merge]
+	tool = bcomp
+[difftool "bc3"]
+	trustExitCode = true
