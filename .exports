@@ -1,5 +1,5 @@
 # Make emacs the default editor
-export EDITOR='emacs -nw'
+export EDITOR='vim'
 export VISUAL='subl'
 
 # Larger bash history (allow 32³ entries; default is 500)
@@ -32,4 +32,4 @@ export GREP_COLOR='1;31' # green for matches
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # AWS deafult profile environment variable
-export AWS_DEFAULT_PROFILE="ricardo-signal"
+#export AWS_DEFAULT_PROFILE="ricardo"
