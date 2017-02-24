@@ -58,8 +58,16 @@ set statusline+=%{ALEGetStatusLine()}
 " You can disable this option too
 " if you don't want linters to run on opening a file
 " let g:ale_lint_on_enter = 1
-
 if has("gui_running")
+    " Set the fonts based on the GUI types
+    " http://stackoverflow.com/questions/3316244/set-gvim-font-in-vimrc-file 
+    if has("gui_gtk2")
+        set guifont=Inconsolata\ 12
+    elseif has("gui_macvim")
+        set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+        set guifont=Consolas:h11:cANSI
+    endif
     set background=light
     " Solarized options
     let g:solarized_termtrans=1
@@ -78,4 +86,6 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
-
+" set the location to look for ctags tags files
+set tags+=.git/tags
+set tags+=.hg/tags
