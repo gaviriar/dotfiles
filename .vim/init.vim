@@ -81,23 +81,23 @@ set statusline+=%{ALEGetStatusLine()}
 " You can disable this option too
 " if you don't want linters to run on opening a file
 " let g:ale_lint_on_enter = 1
-
 " Font settings
 
 if has("gui_running")
     set background=dark
+    " Set the fonts based on the GUI types
+    " http://stackoverflow.com/questions/3316244/set-gvim-font-in-vimrc-file 
+    if has("gui_gtk2")
+        set guifont=Inconsolata\ 12
+    elseif has("gui_macvim")
+        set guifont=Menlo\ Regular:h14
+    elseif has("gui_win32")
+        set guifont=Consolas:h11:cANSI:b
+    endif
     " Solarized options
     let g:solarized_termtrans=1
     let g:solarized_termcolors=256
     colorscheme solarized
-    " set font
-    if has('gui_gtk2')
-        set guifont=Inconsolata\ 12
-    elseif has('gui_macvim')
-        set guifont=Menlo\ Regular:h14
-    elseif has('gui_win32')
-        set guifont=Consolas:h13:cANSI:b
-    end
 else 
     colorscheme desert
 endif
@@ -112,5 +112,6 @@ set expandtab
 
 " It tells Vim to look for a tags file in the directory of the current file, in the current directory and up and up until your $HOME (that's the meaning of the semicolon), stopping on the first hit.
 set tags=./tags,tags;$HOME
-
-
+" set additional location to look for ctags tags files
+set tags+=.git/tags
+set tags+=.hg/tags
