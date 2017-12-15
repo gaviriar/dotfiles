@@ -132,9 +132,9 @@ function s() {
 # given location
 function e() {
   if [ $# -eq 0 ]; then
-    emacs .;
+    vim .;
   else
-    emacs "$@";
+    vim "$@";
   fi;
 }
 
@@ -156,4 +156,15 @@ function tre() {
   tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
 
-
+# `todo` with no arguments creates a todo .md file with the date timestamped in 
+# the current working directory and open the file with the editor, if path is 
+# specified as an argument the todo will be created there. If the todo already 
+# exists it will open it.
+function todo() {
+    date=`date '+%Y-%m-%d'`    
+    FILE=todo_$date.md
+    if [ ! -f $FILE ]; then
+        touch $FILE
+    fi
+    e $FILE
+}
