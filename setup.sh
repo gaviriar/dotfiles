@@ -3,10 +3,12 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-git pull origin master;
+# git pull origin master;
 
 function doIt() {
-        rsync --exclude ".git/" --exclude ".DS_Store" --exclude "setup.sh" --exclude "README.md" --exclude ".screenrc" --exclude "color-list.txt"--exclude ".emacs.d/" -avh --no-perms . ~; 
+        rsync --exclude ".git/" --exclude ".DS_Store" --exclude "setup.sh" \
+            --exclude "README.md" --exclude ".screenrc" --exclude "color-list.txt" \
+            -avh --no-perms . ~; 
         source ~/.bash_profile;
 }
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

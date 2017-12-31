@@ -3,17 +3,23 @@ filetype off                  " required
 
 set termguicolors
 " import custom vimrc file which is machine specific
-let $CUSTOM_VIMRC=$HOME.'\custom.vimrc'
+
+let $CUSTOM_VIMRC=$HOME.'/custom.vimrc'
+
+echo "--------------------------"
+echo $CUSTOM_VIMRC
+echo "---------------------------"
+
 if filereadable($CUSTOM_VIMRC)
     source $CUSTOM_VIMRC
     echo "reading " $CUSTOM_VIMRC
 else
-    echo "WARNING: No "  $CUSTOM_VIMRC  " Found"
+    echo "WARNING: No  $CUSTOM_VIMRC  Found"
     echo "Must set the following variables in the file at least"
     echo "-----------------------------------------------------"
     echo "$PYTHON_PATH='C:\monty\win-31;C:\monty\win-32\Scripts;C:\monty\win-32\Libs\site-packages'"
     echo "$PATH=$PYTHON_PATH .';'. $PATH"
-    echo "$VIM_DIR="~/vimfiles/plugged""
+    echo "$VIM_DIR='~/vimfiles/plugged'"
 end
     
 
@@ -29,9 +35,12 @@ Plug 'altercation/vim-colors-solarized'
 " Asynchronous Lint Engine 
 Plug 'w0rp/ale'
 
-" Change conda environments in the editor
-" Plug 'cjrh/vim-conda'
-" CondaChangeEnv<Enter> - to switch virtual env
+
+if has("mac")
+    " Change conda environments in the editor
+    Plug 'cjrh/vim-conda'
+    " CondaChangeEnv<Enter> - to switch virtual env
+endif
 
 " Python autocompletion
 Plug 'davidhalter/jedi-vim'
@@ -96,7 +105,12 @@ if has("gui_running")
     endif
     " Solarized options
     let g:solarized_termtrans=1
-    let g:solarized_termcolors=256
+    " if you do use the custom terminal colors, solarized.vim should work 
+    " out of the box for you. If you are using a terminal emulator that supports 
+    " 256 colors and don't want to use the custom Solarized terminal colors, 
+    " you will need to use the degraded 256 colorscheme. To do so, simply add 
+    " the following line before the colorschem solarized
+    " let g:solarized_termcolors=256
     colorscheme solarized
 else 
     colorscheme desert
