@@ -62,7 +62,7 @@ done
 unset file;
 
 # init z   https://github.com/rupa/z
-. ~/MyCellar/z/z.sh
+. ~/code/z/z.sh
 #! if Z is not working then maybe try: source ~/MyCellar/z/z.sh
 
 
