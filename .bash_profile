@@ -56,13 +56,13 @@
 
 # Load ~/.extra, ~/.path, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions and ~/.bashrc
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{path,bash_prompt,exports,aliases,functions}; do
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
   [ -r "$file" ] && source "$file"
 done
 unset file;
 
 # init z   https://github.com/rupa/z
-. ~/code/z/z.sh
+. ~/projects/z/z.sh
 #! if Z is not working then maybe try: source ~/MyCellar/z/z.sh
 
 
@@ -88,7 +88,18 @@ fi;
 # More info on ssh configs: http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 
-# http://stackoverflow.com/questions/13804382/how-to-automatically-run-bin-bash-login-automatically-in-the-embeded-termin
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# Set caps lock key as Ctrl on debian
+# This temporarily remaps the CapsLock key to a Control key.
+# The keyboard will return to the previous settings after a
+# reboot. The Linux console and the X Window system each
+# handles keypresses separately, so each must be remapped
+# separately. First remap the X keyboard since this does not
+# require root access.
 
+# Remap the CapsLock key to a Control key for
+# the X Window system.
+if type setxkbmap >/dev/null 2>&1; then
+        setxkbmap -layout us -option ctrl:nocaps 2>/dev/null
+fi
 
+# http://www.noah.org/wiki/CapsLock_Remap_Howto

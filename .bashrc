@@ -185,12 +185,5 @@
 ## -- 3) User-customized code  --
 ## ------------------------------
 
-
-# #source z for fast directory searching
-# source ~/code/z/z.sh
-
-# ## Define any user-specific variables you want here.
-# source ~/.bashrc_custom
-
 # Load Bash profile
 [ -n "$PS1" ] && source ~/.bash_profile
