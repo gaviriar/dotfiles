@@ -1,22 +1,36 @@
-dotfiles.git
-============
-Clone and run this on a new EC2 instance running Ubuntu 12.04.2 LTS to
-configure your `bash` and `emacs` development environment as follows:
+# Ricardo's dotfiles
 
-```sh
-cd $HOME
-git clone https://github.com/startup-class/dotfiles.git
-ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.bashrc_custom .
-mv .emacs.d .emacs.d~
-ln -s dotfiles/.emacs.d .
+## Installation
+
+**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
+
+### Using Git and the bootstrap script
+
+You can clone the repository wherever you want. (I like to keep it in `~/Projects/dotfiles/ricardogaviria/dotfiles` so that I can clone dotfiles from other inspirations and at the same level as reference, with `~/dotfiles` as a symlink.) The bootstrapper script will pull in the latest version and copy the files to your home folder.
+
+```bash
+git clone https://github.com/mathiasbynens/dotfiles.git && cd dotfiles && source bootstrap.sh
 ```
 
-See also http://github.com/startup-class/setup to install prerequisite
-programs. If all goes well, in addition to a more useful prompt, now you can
-do `emacs -nw hello.js` and hitting `C-c!` to launch an interactive SSJS
-REPL, among many other features. See the
-[Startup Engineering Video Lectures 4a/4b](https://class.coursera.org/startup-001/lecture/index)
-for more details.
+To update, `cd` into your local `dotfiles` repository and then:
+
+```bash
+source bootstrap.sh
+```
+
+Alternatively, to update while avoiding the confirmation prompt:
+
+```bash
+set -- -f; source bootstrap.sh
+```
+
+# Install debian packages
+
+```bash
+./apt.sh
+```
+
+# Courtesy of...
+* [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
+* [Paul Irish](https://github.com/paulirish/dotfiles)
+* [Balajis Coursera Startup Class](lecture/inde://github.com/startup-class/setup)
