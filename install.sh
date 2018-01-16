@@ -22,5 +22,4 @@ fi
 # If this is your first time dont forget to update your .bashrc
 # personally I do this on the .extras dotfile on my machine as this is really more of a machine specific thing that I do not want to polute my .bashrc with
 # It's up to you really
-printf '\n%s\n%s' '# virtualenv' 'export WORKON_HOME=~/.virtualenvs' >> ~/.exports
-printf '\n%s\n%s' '# virtualenv' 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.extras
+printf '\n%s\n%s\n%s' '# virtualenv' 'export WORKON_HOME=~/.virtualenvs' 'source /usr/local/bin/virtualenvwrapper.sh'>> ~/.extras
