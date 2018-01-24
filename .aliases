@@ -111,6 +111,20 @@ command -v sha1sum > /dev/null || alias sha1sum="shasum"
 #[ -e "${jscbin}" ] && alias jsc="${jscbin}"
 #unset jscbin
 
+# Creat pbcopy alias for linux machines
+# @todo: there is a problem here, need to figure out what it is! 
+unamestr=`uname`
+platform='unknown'
+if [[ "$unamestr" == 'Linux' ]]; then
+    platform = 'linux'
+fi
+
+if [[ $platform == 'linux' ]]; then
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
+    echo 'pbcopy created' 
+fi
+
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"
 
