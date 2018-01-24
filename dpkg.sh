@@ -17,6 +17,8 @@ sudo apt-get install colordiff
 sudo apt-get install git-lfs
 sudo apt-get install tmux
 sudo apt-get install nmap
+sudo apt-get install tree
+sudo apt-get install xclip
 
 sudo apt-get install default-jdk
 sudo apt-get install maven
