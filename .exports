@@ -1,6 +1,6 @@
 # Make emacs the default editor
-export EDITOR='vim'
-export VISUAL='subl'
+export VISUAL='vim'
+export EDITOR='$VISIAL'
 
 # Larger bash history (allow 32³ entries; default is 500)
 export HISTSIZE=32768
