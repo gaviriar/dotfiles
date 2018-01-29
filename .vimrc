@@ -1,7 +1,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set termguicolors
+if has('nvim')
+    set termguicolors
+endif
+
 let g:python_host_prog='/Users/RicardoGaviria/anaconda3/envs/py2/bin/python'
 
 " Specify directory for plugins

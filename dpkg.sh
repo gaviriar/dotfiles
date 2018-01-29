@@ -19,6 +19,8 @@ sudo apt-get install tmux
 sudo apt-get install nmap
 sudo apt-get install tree
 sudo apt-get install xclip
+sudo apt-get install python-pygments
+sudo apt-get install rlwrap
 
 sudo apt-get install default-jdk
 sudo apt-get install maven

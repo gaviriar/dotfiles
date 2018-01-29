@@ -77,13 +77,13 @@ shopt -s nocaseglob
 shopt -s cdspell;
 
 # Ad tab completion for many Bash commands. 
+if [ -f /etc/bash_completion ]; then # If no bash-completion set by homebrew found
+    source /etc/bash_completion;
+elif  [ -x `which brew` ] && [ -f $(brew --prefix)/etc/bash_completion ]; then # Assuming HomeBrew and bash-completion package is installed too 
+ . $(brew --prefix)/etc/bash_completion
+fi
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then # Assuming HomeBrew and bash-completion package is installed too 
-  . $(brew --prefix)/etc/bash_completion
-elif [ -f /etc/bash_completion ]; then # If no bash-completion set by homebrew found 
-	source /etc/bash_completion;
-fi;
-
+	
 # Add auto-tab completion for SSH hostnames based on ~/.ssh/config
 # More info on ssh configs: http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
