@@ -4,12 +4,16 @@
 [alias]
 	s = status -s
 	l = log
+        lo = log --oneline
 	dif = diff
 	cob = checkout -b
 	co = checkout
 	br = branch
-	c = commit -m
-	hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+	c = commit 
+	cm = commit -m
+        hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+        ap = add -p
+
 [push]
 	default = simple
 [diff]
@@ -18,3 +22,8 @@
 	tool = bcomp
 [difftool "bc3"]
 	trustExitCode = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
