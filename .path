@@ -20,3 +20,11 @@ export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/st
 
 ## Anaconda Path
 export PATH=/usr/local/miniconda3/bin:"$PATH"
+
+# toggl-cli configuration
+export MY_CELLAR_DIR="~/projects"
+[ -d "$MY_CELLAR_DIR/toggl-cli" ] && export PATH=$MY_CELLAR_DIR/toggl-cli:$PATH # This loads the 
+
+# Cuda
+export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda-9.0/bin:$PATH
