@@ -102,4 +102,11 @@ if type setxkbmap >/dev/null 2>&1; then
         setxkbmap -layout us -option ctrl:nocaps 2>/dev/null
 fi
 
+# Start redshift to change screen color temperature
+# Useful for nighttime reading
+if ! pgrep -x "redshift" > /dev/null
+then
+redshift &
+fi
+
 # http://www.noah.org/wiki/CapsLock_Remap_Howto

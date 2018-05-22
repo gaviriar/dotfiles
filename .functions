@@ -94,7 +94,7 @@ webmify(){
 # Use Git’s colored diff when available
 hash git &>/dev/null;
 if [ $? -eq 0 ]; then
-  function diff() {
+  function dif() {
     git diff --no-index --color-words "$@";
   }
 fi;
@@ -115,6 +115,18 @@ function json() {
     python -mjson.tool <<< "$*" | pygmentize -l javascript;
   else # pipe
     python -mjson.tool | pygmentize -l javascript;
+  fi;
+}
+
+# Pretty-print CSV files 
+# Usage: `csv <some-file>.csv
+# Courtesy of: https://coderwall.com/p/sankgq/pretty-print-a-csv-file
+# todo: could be extended to support quotes in CSV fields
+function csv() {
+  if [ -t 0 ]; then # argument
+    column -s, -t <<< "$*";
+  else
+    column -s, -t ;
   fi;
 }
 
@@ -139,7 +151,7 @@ function e() {
 }
 
 # `o` with no arguments opens the current directory, otherwise opens the given
-# location
+# location 
 function o() {
   if [ $# -eq 0 ]; then
     open .;
