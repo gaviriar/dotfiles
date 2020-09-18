@@ -100,7 +100,7 @@ alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
 
 # View HTTP traffic
-alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+alias sniff="sudo ngrep -d 'wlp1s0' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
 
 # Canonical hex dump; some systems have this symlinked
@@ -226,3 +226,12 @@ fi
 # Maven build aliases
 alias mbcis='mvn clean install -DskipTests && notify-send "Build complete"'
 
+#Gitlab Runner 
+alias gitlab-exec-docker='gitlab-runner exec docker --pre-clone-script $(pwd)/pre_clone.sh --env AUTH_TOKEN=${GITLAB_TOKEN}'
+
+# BFG Big Repo Cleaner
+alias bfg="java -jar ~/my_cellar/bfg-1.13.0.jar"
+
+
+# Coronavirus CLI
+alias corona="curl https://corona-stats.online"

@@ -222,3 +222,8 @@ function prune() {
   git remote prune origin
   git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
 }
+
+# find a library with cmake's fine_package function
+function find_lib() {
+  cmake --find-package -DNAME="$@" -DCOMPILER_ID=GNU -DLANGUAGE=C -DMODE=EXIST
+}
