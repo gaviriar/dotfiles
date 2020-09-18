@@ -1,0 +1,4 @@
+# shell scripts must always have LF line endings on checkout
+# # shell scripts must always have LF line endings on checkout 
+*.sh	text eol=lf
+.* 	text eol=lf
