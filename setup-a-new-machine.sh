@@ -73,7 +73,7 @@ sudo sysctl kern.maxvnodes=$((512*1024))
 echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
 
 # To be done on UniteLabs based repos
-git config user.email "ricardo@unitelabs.ch"
+git config user.email "ricardo.a.gaviria@gmail.com"
 
 
 ##############################################################################################################
