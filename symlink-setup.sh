@@ -167,12 +167,16 @@ main() {
                 if answer_is_yes; then
                     rm -rf "$targetFile"
                     execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
+                    print_success "$targetFile → $sourceFile"
                 else
-                    print_error "$targetFile → $sourceFile"
+                    ask_for_confirmation "copy $targetFile? it will overwrite the local one"
+                    if answer_is_yes; then
+                        execute "cp $targetFile $sourceFile"
+                        print_success "copied $sourceFile to $targetFile"
+                    else
+                        print_error "$targetFile → $sourceFile"
+                    fi
                 fi
-
-            else
-                print_success "$targetFile → $sourceFile"
             fi
         else
             execute "ln -fs $sourceFile $targetFile" "$targetFile → $sourceFile"
