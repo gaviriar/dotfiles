@@ -1,80 +1,51 @@
 # .bash_profile file
-# Shamelessly copied from:
-# By Balaji S. Srinivasan (balajis@stanford.edu),
-# mathiasbynens and paulirish
-#
-# Concepts:
-# http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
-#
-#    1) .bashrc is the *non-login* config for bash, run in scripts and after
-#        first connection.
-#
-#    2) .bash_profile is the *login* config for bash, launched upon first
-#        connection (in Ubuntu)
-#
-#    3) .bash_profile imports .bashrc in our script, but not vice versa.
-#
-#    4) .bashrc imports .bashrc_custom in our script, which can be used to
-#        override variables specified here.
-#
-# When using GNU screen:
-#
-#    1) .bash_profile is loaded the first time you login, and should be used
-#       only for paths and environmental settings
-
-#    2) .bashrc is loaded in each subsequent screen, and should be used for
-#       aliases and things like writing to .bash_eternal_history (see below)
-#
-# Do 'man bashrc' for the long version or see here:
-# http://en.wikipedia.org/wiki/Bash#Startup_scripts
-#
-# When Bash starts, it executes the commands in a variety of different scripts.
-#
-#   1) When Bash is invoked as an interactive login shell, it first reads
-#      and executes commands from the file /etc/profile, if that file
-#      exists. After reading that file, it looks for ~/.bash_profile,
-#      ~/.bash_login, and ~/.profile, in that order, and reads and executes
-#      commands from the first one that exists and is readable.
-#
-#   2) When a login shell exits, Bash reads and executes commands from the
-#      file ~/.bash_logout, if it exists.
-#
-#   3) When an interactive shell that is not a login shell is started
-#      (e.g. a GNU screen session), Bash reads and executes commands from
-#      ~/.bashrc, if that file exists. This may be inhibited by using the
-#      --norc option. The --rcfile file option will force Bash to read and
-#      execute commands from file instead of ~/.bashrc.
-
-## -----------------------
-## -- 1) Import .bashrc --
-## -----------------------
+# Shamelessly copied and inspired from:
+# - Balaji S. Srinivasan (balajis@stanford.edu)
+# - mathiasbynens
+# - paulirish
 
 # Factor out all repeated profile initialization into .bashrc
 #  - All non-login shell parameters go there
 #  - All declarations repeated for each screen session go there
 
-
-# Load ~/.extra, ~/.path, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions and ~/.bashrc
+# Load ~/.extra, ~/.path, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions, ~/.bashrc and ~/.vault
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra,vault}; do
   [ -r "$file" ] && source "$file"
 done
 unset file;
 
 # init z   https://github.com/rupa/z
-. ~/projects/z/z.sh
+. ~/my_cellar/z/z.sh
 #! if Z is not working then maybe try: source ~/MyCellar/z/z.sh
 
+## History
+# Enable history expansion with space
+# E.g. typing !!<space> will replace the !! with your last command
+bind Space:magic-space
 
-# Append to the Bash history file rather than overriding it
-# See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
-shopt -s histappend
+# Use standard ISO 8601 timestamp
+# %F equivalent to %Y-%m-%d
+# %T equivalent to %H:%M:%S (24-hours format)
+export HISTTIMEFORMAT='%F %T '
 
-# Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob
+# keep history up to date, across sessions, in realtime
+#  http://unix.stackexchange.com/a/48113
+export HISTCONTROL="ignoredups"       # no duplicate entries, but keep space-prefixed commands
+export HISTSIZE=100000                          # big big history (default is 500)
+export HISTFILESIZE=$HISTSIZE                   # big big history
+type shopt &> /dev/null && shopt -s histappend  # append to history, don't overwrite it
 
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
+# Don't record some commands
+export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
+
+# Save multi-line commands as one command
+shopt -s cmdhist
+
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
 
 # Ad tab completion for many Bash commands. 
 if [ -f /etc/bash_completion ]; then # If no bash-completion set by homebrew found
@@ -88,6 +59,22 @@ fi
 # More info on ssh configs: http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 
+##
+## better `cd`'ing
+##
+
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# Correct spelling errors in arguments supplied to cd
+shopt -s cdspell;
+
+# Autocorrect on directory names to match a glob.
+shopt -s dirspell 2> /dev/null
+
+# Turn on recursive globbing (enables ** to recurse all directories)
+shopt -s globstar 2> /dev/null
+
 # Set caps lock key as Ctrl on debian
 # This temporarily remaps the CapsLock key to a Control key.
 # The keyboard will return to the previous settings after a
@@ -98,15 +85,12 @@ fi
 
 # Remap the CapsLock key to a Control key for
 # the X Window system.
+
+# TODO: This should be moved to .config/autostart
+# See https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
+# for more information
 if type setxkbmap >/dev/null 2>&1; then
         setxkbmap -layout us -option ctrl:nocaps 2>/dev/null
-fi
-
-# Start redshift to change screen color temperature
-# Useful for nighttime reading
-if ! pgrep -x "redshift" > /dev/null
-then
-redshift &
 fi
 
 # http://www.noah.org/wiki/CapsLock_Remap_Howto

@@ -26,6 +26,9 @@ Plug 'cjrh/vim-conda'
 " Sublime text like multiple selection
 Plug 'terryma/vim-multiple-cursors'
 
+" Java Autocompletion
+Plug 'artur-shaik/vim-javacomplete2'
+
 " initialize plugin system
 call plug#end()
 
@@ -81,4 +84,35 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
+" Java Autocompletion configuration
+" Check out https://github.com/artur-shaik/vim-javacomplete2 for more
+" information
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
+" Enable smart (trying to guess import option) inserting class imports with F4, add:
+
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+
+imap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+
+" To enable usual (will ask for import option) inserting class imports with F5, add:
+
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+
+imap <F5> <Plug>(JavaComplete-Imports-Add)
+
+" To add all missing imports with F6:
+
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+
+imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+
+" To remove all unused imports with F7:
+
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+let g:JaveComplete_AutoStartServer = 0 " Disable automatic startup of server
+
+autocmd Filetype gitcommit setlocal spell textwidth=72

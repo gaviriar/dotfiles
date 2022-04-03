@@ -21,4 +21,8 @@ Thumbs.db
 # git credential file
 .gitconfig.local
 
+# Dotfiles
+.vault
+.extrarc
+
 

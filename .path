@@ -21,10 +21,56 @@ export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/st
 ## Anaconda Path
 export PATH=/usr/local/miniconda3/bin:"$PATH"
 
-# toggl-cli configuration
-export MY_CELLAR_DIR="~/projects"
-[ -d "$MY_CELLAR_DIR/toggl-cli" ] && export PATH=$MY_CELLAR_DIR/toggl-cli:$PATH # This loads the 
-
 # Cuda
 export LD_LIBRARY_PATH=/usr/local/cuda-9.0/lib64:$LD_LIBRARY_PATH
 export PATH=/usr/local/cuda-9.0/bin:$PATH
+
+
+# TODO: modularize this by looping through apps on my_cellar in a list [zotero, toggl-cli, etc..]
+export MY_CELLAR_DIR="~/my_cellar"
+export PATH=$MY_CELLAR_DIR:$PATH
+
+# Dotnet environment configuration
+function set_dotnet {
+  DOTNET_INSTALL_BASE_PATH=$MY_CELLAR_DIR/dotnet
+  if [ "$#" -lt 1  ]; then
+    echo "You must specify which dotnet SDK version to activate, possible options are:"
+    find $DOTNET_INSTALL_BASE_PATH -maxdepth 1 -type d | grep dotnet
+    echo "$# args specified"
+    return 1
+  fi
+
+    DOTNET_INSTALL_DIR=$DOTNET_INSTALL_BASE_PATH/$1
+    if [ !  -d "$DOTNET_INSTALL_DIR" ]; then
+      echo "Failed to set Dotnet SDK as $DOTNET_INSTALL_DIR does not exist!"
+      return 1
+    fi
+    echo "Setting dotent SDK $1"
+    export DOTNET_ROOT=$DOTNET_INSTALL_DIR
+    export PATH=$DOTNET_ROOT:$PATH
+
+  if [ "$#" -lt 2  ]; then
+    return 0
+  fi
+
+  DOTNET_EXE=$DOTNET_INSTALL_BASE_PATH/$1/dotnet
+  if [ !  -f "$DOTNET_EXE" ]; then
+    echo "Failed to set Dotnet SDK as $DOTNET_INSTALL_DIR does not exist!"
+    return 1
+  fi
+  echo "Setting dotent SDK $1 as alias $2"
+  alias $2="$DOTNET_EXE"
+}
+
+# set .NET SDK 2
+# Uncommentto set dotnet
+# set_dotnet dotnet-sdk-<version>
+
+# PyEnv
+export PATH="/home/unitelabs/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
