@@ -1,0 +1,55 @@
+{
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.advanced": {},
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "workbench.editor.enablePreview": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "gitlab.duoCodeSuggestions.enabled": true,
+  "diffEditor.maxComputationTime": 0,
+  "files.associations": {
+    " *.sql": "jinja-sql",
+    ".yml": "jinja-yaml"
+  },
+  "database-client.autoSync": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "python": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true
+  },
+  "chat.tools.terminal.autoApprove": {
+    "git mv": true,
+    "mv": true,
+    "mkdir": true
+  },
+  "python.analysis.aiCodeActions": {
+
+    "implementAbstractClasses": true,
+    "generateSymbol": true,
+    "convertFormatString": true
+  },
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.autoFormatStrings": true,
+  "workbench.colorTheme": "Catppuccin Macchiato",
+  "terminal.integrated.copyOnSelection": true,
+  "autoDocstring.docstringFormat": "numpy",
+  "workbench.iconTheme": "vscode-icons",
+  "remote.SSH.remotePlatform": {
+    "*.gitpod.local": "linux",
+    "*.gitpod.remote": "linux"
+  },
+  "gitpod-flex.host": "https://flexdev.roche.com",
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "diffEditor.ignoreTrimWhitespace": false
+}
