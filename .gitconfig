@@ -5,6 +5,7 @@
 	s = status -s
 	l = log
 	lo = log --oneline --graph --decorate
+	los = log --simplify-by-decoration --oneline --decorate --graph
 	dif = diff
 	cob = checkout -b
 	co = checkout

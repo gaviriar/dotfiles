@@ -103,7 +103,7 @@ function server() {
   open "http://localhost:${port}/"
   # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
   # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
-  python -c $'import http.server;\nmap = http.server.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nhttp.server.test();' "$port"
+  python3 -c $'import http.server;\nmap = http.server.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nhttp.server.test();' "$port"
 }
 
 # animated gifs from any video
@@ -111,9 +111,8 @@ function server() {
 gifify() {
   if [[ -n "$1" ]]; then
     if [[ $2 == '--good' ]]; then
-      ffmpeg -i $1 -r 10 -vcodec png out-static-%05d.png
-      time convert -verbose +dither -layers Optimize -resize 600x600\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > $1.gif
-      rm out-static*.png
+      RESOLUTION_CMD="ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0"
+      ffmpeg -i $1 -s $($RESOLUTION_CMD $1) -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif
     else
       ffmpeg -i $1 -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif
     fi
@@ -254,11 +253,15 @@ function get_os() {
 }
 
 # Prune remote branches which are no longer in remote
-# and prune corresponding local branches
+# and remove the local branches that have been merged 
+# give the user an option to delete these branches
 function prune() {
   git remote prune origin
-  git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
+  git branch --merged >/tmp/merged-branches && \
+  vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches \ 
+  rm /tmp/merged-branches
 }
+
 
 # find a library with cmake's fine_package function
 function find_lib() {

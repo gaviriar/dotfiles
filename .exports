@@ -20,6 +20,12 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help"
 # unset LANG
 # export LC_ALL=POSIX
 
+# github.com/trapd00r/LS_COLORS
+command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
+if which gdircolors > /dev/null; then
+	eval "$(gdircolors -b ~/.dircolors)"
+fi
+
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="$ORANGE"
 
@@ -34,3 +40,17 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # AWS deafult profile environment variable
 #export AWS_DEFAULT_PROFILE="ricardo"
+
+
+# Locales
+
+LANG="en_US.UTF-8"
+LC_COLLATE="de_CH.UTF-8"
+LC_CTYPE="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_MONETARY="de_CH.UTF-8"
+LC_NUMERIC="de_CH.UTF-8"
+LC_TIME="de_CH.UTF-8"
+
+## Avoid __pycache__ directories in my python projects directory
+export PYTHONPYCACHEPREFIX=/tmp/pycache

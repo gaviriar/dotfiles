@@ -36,7 +36,7 @@ alias j="jobs"
 #alias m="mate ."
 
 alias cl='clear'
-alias du='du -ch --max-depth=1'
+alias du='du -ch -d=1'
 alias treeacl='tree -A -C -L 2'
 
 # Text and editor commands
@@ -230,3 +230,7 @@ alias gitlab-exec-docker='gitlab-runner exec docker --pre-clone-script $(pwd)/pr
 
 # BFG Big Repo Cleaner
 alias bfg="java -jar ~/my_cellar/bfg-1.13.0.jar"
+
+# VirtualEnv
+alias dea='deactivate'
+alias soa='source ./.venv/bin/activate'

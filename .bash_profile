@@ -10,8 +10,8 @@
 
 # Load ~/.extra, ~/.path, ~/.bash_prompt, ~/.exports, ~/.aliases, ~/.functions, ~/.bashrc and ~/.vault
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra,vault}; do
-  [ -r "$file" ] && source "$file"
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extrarc,vault}; do
+ [ -r "$file" ] && source "$file"
 done
 unset file;
 
@@ -23,6 +23,9 @@ unset file;
 # Enable history expansion with space
 # E.g. typing !!<space> will replace the !! with your last command
 bind Space:magic-space
+
+# For MacOS
+export SHELL_SESSION_HISTORY=0
 
 # Use standard ISO 8601 timestamp
 # %F equivalent to %Y-%m-%d
@@ -47,14 +50,19 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # ^ the only downside with this is [up] on the readline will go over all history not just this bash session.
 
-# Ad tab completion for many Bash commands. 
-if [ -f /etc/bash_completion ]; then # If no bash-completion set by homebrew found
+# Ad tab completion for many Bash commands.
+if [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+    source "$(brew --prefix)/share/bash-completion/bash_completion";
+elif [ -f /etc/bash_completion ]; then
     source /etc/bash_completion;
-elif  [ -x `which brew` ] && [ -f $(brew --prefix)/etc/bash_completion ]; then # Assuming HomeBrew and bash-completion package is installed too 
- . $(brew --prefix)/etc/bash_completion
+elif [ -f /usr/local/etc/bash_completion ]; then
+   source  /usr/local/etc/bash_completion;
 fi
 
-	
+if [ -f ~/.git-completion.bash ]; then
+   source ~/.git-completion.bash;
+fi
+
 # Add auto-tab completion for SSH hostnames based on ~/.ssh/config
 # More info on ssh configs: http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
@@ -89,8 +97,10 @@ shopt -s globstar 2> /dev/null
 # TODO: This should be moved to .config/autostart
 # See https://specifications.freedesktop.org/desktop-entry-spec/latest/ar01s06.html
 # for more information
-if type setxkbmap >/dev/null 2>&1; then
-        setxkbmap -layout us -option ctrl:nocaps 2>/dev/null
+if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    if type setxkbmap >/dev/null 2>&1; then
+            setxkbmap -layout us -option ctrl:nocaps 2>/dev/null
+    fi  
 fi
 
 # http://www.noah.org/wiki/CapsLock_Remap_Howto
