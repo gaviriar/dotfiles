@@ -1,6 +1,6 @@
 [user]
 	name = Ricardo Gaviria
-	email = ricardo.a.gaviria@gmail.com
+	email = ricardo.gaviria@roche.com
 [alias]
 	s = status -s
 	l = log
@@ -31,3 +31,6 @@
 [help]
 	autocorrect = -1
 [lfs]
+
+[includeIf "gitdir:~/projects/personal/"]
+    path = ~/.gitconfig.personal
